@@ -3,16 +3,14 @@ import {
   getTurnos,
   createTurno,
   deleteTurno,
-  getTurnosPorDia,
-
 } from '../controllers/turnos.controller.js';
 
 const router = Router();
 
 
 router.get('', getTurnos);
-router.post('/pordia', getTurnosPorDia);
 router.post('', createTurno);
+//router.post('/turnos/pordia', getTurnosPorDia);
 router.delete('', deleteTurno);
 
 

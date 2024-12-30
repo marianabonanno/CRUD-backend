@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.routes.js';
 import Turnos from './routes/turnos.routes.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { getTurnosPorDia } from './controllers/turnos.controller.js';
 
 dotenv.config();
 
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
+app.post('/turnosPorDia', getTurnosPorDia);
 app.use('/turnos', Turnos);
 app.use('/auth', authRoutes);
 
