@@ -3,7 +3,7 @@ import  {getTurnos,
          createTurno, 
          deleteTurno, 
          getTurnosPorDia} from '../controllers/turnos.controller.js';
-import { authRequired } from "../middlewares/validateToken.js";
+//import { authRequired } from "../middlewares/validateToken.js";
 
 
 const router = Router()
