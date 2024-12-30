@@ -1,17 +1,19 @@
 import { Router } from "express";
-import  {getTurnos,
-         createTurno, 
-         deleteTurno, 
-         getTurnosPorDia} from '../controllers/turnos.controller.js';
-//import { authRequired } from "../middlewares/validateToken.js";
+import { 
+  getTurnos,
+  createTurno,
+  deleteTurno,
+  getTurnosPorDia,
+
+} from '../controllers/turnos.controller.js';
+
+const router = Router();
 
 
-const router = Router()
+router.get('/', getTurnos);
+router.post('/porDia', getTurnosPorDia);
+router.post('/', createTurno);
+router.delete('/', deleteTurno);
 
 
-
-router.get('/turnos', getTurnos);
-router.post('/turnosPorDia', getTurnosPorDia);
-router.post('/turnos',  createTurno);
-router.delete('/turnos',  deleteTurno);
 export default router;

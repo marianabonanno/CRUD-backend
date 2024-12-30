@@ -9,28 +9,24 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  'https://merry-souffle-f4fa04.netlify.app',
+  'http://localhost:5173' 
+];
 
-const allowedOrigins = ['https://merry-souffle-f4fa04.netlify.app'];
+
+app.use(express.json());
+app.use(morgan('dev'));
+
 
 app.use(cors({
   origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  optionsSuccessStatus: 200
+  credentials: true
 }));
 
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Origin', allowedOrigins[0]);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  
-  
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  console.log(`${req.method} ${req.url}`);
   next();
 });
 
@@ -38,9 +34,14 @@ app.use((req, res, next) => {
 app.use('/turno', Turnos);
 app.use('/auth', authRoutes);
 
-
 app.get('/', (req, res) => {
   res.send('Servidor funcionando correctamente');
+});
+
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal server error' });
 });
 
 export default app;
