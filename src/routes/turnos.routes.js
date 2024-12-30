@@ -10,9 +10,8 @@ const router = Router()
 
 
 
-router.get('/', getTurnos); 
+router.get('/turnos', getTurnos);
 router.post('/turnosPorDia', getTurnosPorDia);
-router.post('/', createTurno); 
-router.delete('/', deleteTurno);
-
+router.post('/turnos',  createTurno);
+router.delete('/turnos',  deleteTurno);
 export default router;
