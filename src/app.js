@@ -10,10 +10,21 @@ dotenv.config();
 const app = express();
 
 
+const cors = require('cors');
+
+
+const allowedOrigins = ['https://merry-souffle-f4fa04.netlify.app'];
+
 app.use(cors({
-  origin: 'https://merry-souffle-f4fa04.netlify.app/',
-  credentials: true, 
+  origin: function(origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
+
 app.use(morgan('dev'));
 app.use(express.json());
 
