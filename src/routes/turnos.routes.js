@@ -10,10 +10,10 @@ import {
 const router = Router();
 
 
-router.get('/', getTurnos);
+router.get('', getTurnos);
 router.post('/porDia', getTurnosPorDia);
-router.post('/', createTurno);
-router.delete('/', deleteTurno);
+router.post('', createTurno);
+router.delete('', deleteTurno);
 
 
 export default router;

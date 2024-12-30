@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/turno', Turnos);
+app.use('/turnos', Turnos);
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
