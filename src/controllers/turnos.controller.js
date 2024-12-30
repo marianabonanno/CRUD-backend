@@ -31,22 +31,45 @@ export const createTurno = async (req, res) => {
 
 export const getTurnosPorDia = async (req, res) => {
   try {
-    const { dia } = req.body; 
-   
-    console.log("date recibido", dia);
-    
+    const { dia } = req.body;
+    console.log("date recibido", typeof(dia));
+
+    // Convertir la fecha recibida en un objeto Date
     const day = new Date(dia);
 
-    
-    
-    const turnos1 = await Turno.find({ day }); 
-    console.log(turnos1);
+    // Obtener todos los turnos sin filtro
+    const turnos = await Turno.find();
+    console.log(turnos);
 
-    if (!turnos1 || turnos1.length === 0) {
+    if (!turnos || turnos.length === 0) {
+      return res.status(404).json({ message: "No se encontraron turnos." });
+    }
+
+    // Crear un nuevo array donde se almacenarán los turnos del día específico
+    const turnosDelDia = [];
+
+    // Comparar cada turno con el día pasado por el usuario
+    turnos.forEach((turno) => {
+      const turnoDate = new Date(turno.dia); // Convertir el turno en Date para compararlo
+
+      // Compara solo la fecha (sin la hora), utilizando el método de comparación de fechas
+      if (
+        turnoDate.getFullYear() === day.getFullYear() &&
+        turnoDate.getMonth() === day.getMonth() &&
+        turnoDate.getDate() === day.getDate()
+      ) {
+        // Si la fecha del turno coincide con la fecha recibida, agregarlo al array
+        turnosDelDia.push(turno);
+      }
+    });
+   console.log(turnosDelDia);
+    // Si no se encuentran turnos para ese día, responder con un 404
+    if (turnosDelDia.length === 0) {
       return res.status(404).json({ message: "No se encontraron turnos para este día." });
     }
-    
-    res.json(turnos1); 
+
+    // Devolver los turnos encontrados para el día específico
+    res.json(turnosDelDia);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Hubo un error al obtener los turnos." });
