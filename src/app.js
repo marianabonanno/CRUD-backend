@@ -9,17 +9,20 @@ dotenv.config();
 
 const app = express();
 
+
 app.use(cors({
   origin: '*',
 }));
 app.use(morgan('dev'));
 app.use(express.json());
 
+
 app.use('/turnos', Turnos);
 app.use('/auth', authRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Servidor funcionando correctamente');
 });
 
-export default app; 
+export default app;
