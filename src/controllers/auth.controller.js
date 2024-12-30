@@ -18,7 +18,7 @@ export const registro = async (req, res) => {
     const userSaved = await newUser.save();
    // const token = await createAccesToken({id: userSaved._id})
 
-    res.cookie("token", token);
+   // res.cookie("token", token);
     return res.status(201).json({
       message: "Usuario creado exitosamente",
       user: {
@@ -53,7 +53,7 @@ export const login = async (req, res) => {
 
     //const token = await createAccesToken({id: userFound._id})
     
-    res.cookie("token", token);
+    //res.cookie("token", token);
 
     res.json({
       id: userFound._id,
