@@ -32,7 +32,8 @@ export const createTurno = async (req, res) => {
 export const getTurnosPorDia = async (req, res) => {
   try {
     const { dia } = req.body; 
-
+   
+    console.log("date recibido", dia);
     
     const startOfDay = new Date(dia);
     startOfDay.setHours(0, 0, 0, 0); 
@@ -45,7 +46,7 @@ export const getTurnosPorDia = async (req, res) => {
     if (!turnos || turnos.length === 0) {
       return res.status(404).json({ message: "No se encontraron turnos para este día." });
     }
-
+    console.log(turnos);
     res.json(turnos); 
   } catch (err) {
     console.error(err);
