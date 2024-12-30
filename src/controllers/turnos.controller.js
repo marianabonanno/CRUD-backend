@@ -35,13 +35,13 @@ export const getTurnosPorDia = async (req, res) => {
    
     console.log("date recibido", dia);
     
-    // const startOfDay = new Date(dia);
-    // startOfDay.setHours(0, 0, 0, 0); 
+    const startOfDay = new Date(dia);
+    startOfDay.setHours(0, 0, 0, 0); 
 
-    // const endOfDay = new Date(dia);
-    // endOfDay.setHours(23, 59, 59, 999); 
-
-    const turnos = await Turno.find({ dia }); 
+    const endOfDay = new Date(dia);
+    endOfDay.setHours(0, 0, 0, 0); 
+    
+    const turnos = await Turno.find({ dia: { $gte: startOfDay, $lte: endOfDay }}); 
 
     if (!turnos || turnos.length === 0) {
       return res.status(404).json({ message: "No se encontraron turnos para este día." });
