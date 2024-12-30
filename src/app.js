@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import morgan from 'morgan';
 import authRoutes from './routes/auth.routes.js';
 import Turnos from './routes/turnos.routes.js';
@@ -7,12 +8,18 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
 const app = express();
+
+mongoose.connect(process.env.MONGO_URI, () => {
+  console.log("Mongo connected");
+});
 
 const allowedOrigins = [
   'https://merry-souffle-f4fa04.netlify.app',
   'http://localhost:5173' 
 ];
+
 
 
 app.use(express.json());
