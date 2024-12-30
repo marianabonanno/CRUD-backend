@@ -13,28 +13,26 @@ const app = express();
 const allowedOrigins = ['https://merry-souffle-f4fa04.netlify.app'];
 
 app.use(cors({
-  origin: function(origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
-
-app.use(morgan('dev'));
-app.use(express.json());
 
 
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", 
-    "default-src 'none'; " +
-    "style-src 'self' https://www.gstatic.com; " +
-    "script-src 'self' https://www.gstatic.com; " +
-    "img-src 'self' https://www.gstatic.com;");
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Origin', allowedOrigins[0]);
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  
+  
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
   next();
 });
-
 
 
 app.use('/turno', Turnos);
