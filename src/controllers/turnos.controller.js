@@ -64,8 +64,9 @@ export const getTurnosPorDia = async (req, res) => {
     });
    console.log(turnosDelDia);
     // Si no se encuentran turnos para ese día, responder con un 404
-    if (turnosDelDia.length === 0) {
-      return res.status(404).json({ message: "No se encontraron turnos para este día." });
+    if (turnosDelDia.length == 0) {
+      turnosDelDia = "No hay turnos creados en ese día"
+      return res.status(404).json({ message: turnosDelDia });
     }
 
     // Devolver los turnos encontrados para el día específico
