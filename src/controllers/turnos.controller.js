@@ -40,11 +40,12 @@ export const getTurnosPorDia = async (req, res) => {
     
     
     const turnos = await Turno.find({ day }); 
+    console.log(turnos);
 
     if (!turnos || turnos.length === 0) {
       return res.status(404).json({ message: "No se encontraron turnos para este día." });
     }
-    console.log(turnos);
+    
     res.json(turnos); 
   } catch (err) {
     console.error(err);
