@@ -4,9 +4,9 @@ import {login ,registro, logout, profile} from '../controllers/auth.controller.j
 
 const router = Router()
 
-router.post('/registro', registro);
+router.post('', registro);
 
-router.post('/login', login);
+router.post('', login);
 
 router.post('/logout', logout);
 
