@@ -1,13 +1,25 @@
-import dotenv from 'dotenv'; 
+import express from 'express';
+import morgan from 'morgan';
+import authRoutes from './routes/auth.routes.js';
+import Turnos from './routes/turnos.routes.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
 dotenv.config();
 
-import app from './app.js'
-import {connectDB} from './db.js'
+const app = express();
 
-connectDB();
-const PORT = process.env.PORT || 10000;
+app.use(cors({
+  origin: '*',
+}));
+app.use(morgan('dev'));
+app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-console.log('Server on port', PORT)
+app.use('/turnos', Turnos);
+app.use('/auth', authRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente');
+});
+
+export default app; 
