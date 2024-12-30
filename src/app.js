@@ -6,6 +6,18 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
+app.use('/turnos', Turnos);  
+app.use('/auth', authRoutes);     
+
+
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente');
+});
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 const app = express();
 
