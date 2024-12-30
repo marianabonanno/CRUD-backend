@@ -11,7 +11,7 @@ const router = Router();
 
 
 router.get('', getTurnos);
-router.post('', getTurnosPorDia);
+router.post('/pordia', getTurnosPorDia);
 router.post('', createTurno);
 router.delete('', deleteTurno);
 
