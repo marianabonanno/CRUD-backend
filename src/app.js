@@ -10,9 +10,6 @@ dotenv.config();
 const app = express();
 
 
-const cors = require('cors');
-
-
 const allowedOrigins = ['https://merry-souffle-f4fa04.netlify.app'];
 
 app.use(cors({
