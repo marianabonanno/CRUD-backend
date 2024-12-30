@@ -26,6 +26,17 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", 
+    "default-src 'none'; " +
+    "style-src 'self' https://www.gstatic.com; " +
+    "script-src 'self' https://www.gstatic.com; " +
+    "img-src 'self' https://www.gstatic.com;");
+  next();
+});
+
+
+
 app.use('/turnos', Turnos);
 app.use('/auth', authRoutes);
 
