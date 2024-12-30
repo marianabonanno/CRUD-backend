@@ -11,7 +11,8 @@ const app = express();
 
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://merry-souffle-f4fa04.netlify.app/',
+  credentials: true, 
 }));
 app.use(morgan('dev'));
 app.use(express.json());
