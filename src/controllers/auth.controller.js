@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import { createAccesToken } from "../libs/jwt.js";
+//import { createAccesToken } from "../libs/jwt.js";
 
 export const registro = async (req, res) => {
   const { nombre, apellido, email, password } = req.body;
@@ -16,7 +16,7 @@ export const registro = async (req, res) => {
     });
 
     const userSaved = await newUser.save();
-    const token = await createAccesToken({id: userSaved._id})
+   // const token = await createAccesToken({id: userSaved._id})
 
     res.cookie("token", token);
     return res.status(201).json({
@@ -26,7 +26,7 @@ export const registro = async (req, res) => {
         nombre: userSaved.nombre,
         apellido: userSaved.apellido,
         email: userSaved.email,
-        token: userSaved.token,
+        //token: userSaved.token,
       },
     });
   
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Contraseña incorrecta" });
 
-    const token = await createAccesToken({id: userFound._id})
+    //const token = await createAccesToken({id: userFound._id})
     
     res.cookie("token", token);
 
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
       id: userFound._id,
       nombre: userFound.nombre,
       email: userFound.email,
-      token: userFound.token,
+     // token: userFound.token,
     });
     console.log(token)
   } catch (error) {
@@ -70,9 +70,9 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-   res.cookie('token',"",{
-      expires: new Date(0)
-   })
+  //  res.cookie('token',"",{
+  //     expires: new Date(0)
+  //  })
   return res.sendStatus(200);
 };
 

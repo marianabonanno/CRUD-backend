@@ -1,45 +1,45 @@
-import jwt from 'jsonwebtoken'
-import { TOKEN_SECRET } from '../config.js';
+// import jwt from 'jsonwebtoken'
+// import { TOKEN_SECRET } from '../config.js';
 
 
-export const authRequired = (req, res, next) => {
+// export const authRequired = (req, res, next) => {
 
-    const cookieString = req.headers.cookie; 
+//     const cookieString = req.headers.cookie; 
 
-    console.log("Cookie sin extraer:", cookieString);
+//     console.log("Cookie sin extraer:", cookieString);
 
  
-    if (!cookieString) {
-        return res.status(401).json({ message: "No autorizado: Cookie no encontrada" });
-    }
+//     if (!cookieString) {
+//         return res.status(401).json({ message: "No autorizado: Cookie no encontrada" });
+//     }
 
 
-    function extraerToken(cookieString) {
+//     function extraerToken(cookieString) {
      
-        const token = cookieString
-            .replace(/^token=/, '') 
-            .split('; ')[0];        
-        return token;
-    }
+//         const token = cookieString
+//             .replace(/^token=/, '') 
+//             .split('; ')[0];        
+//         return token;
+//     }
 
-    const token = extraerToken(cookieString);
+//     const token = extraerToken(cookieString);
 
-    console.log("Token extraído:", token);
+//     console.log("Token extraído:", token);
 
  
-    if (!token) {
-        return res.status(401).json({ message: "No autorizado: Token no encontrado" });
-    }
+//     if (!token) {
+//         return res.status(401).json({ message: "No autorizado: Token no encontrado" });
+//     }
 
- jwt.verify(token, TOKEN_SECRET, (err, user) => {
-    if(err) return res.status(403).json({message: "Token Invalido"});
+//  jwt.verify(token, TOKEN_SECRET, (err, user) => {
+//     if(err) return res.status(403).json({message: "Token Invalido"});
  
-    req.user = user
+//     req.user = user
 
-    next();
-})
+//     next();
+// })
 
-}
+// }
 
 // export const permisos = (req, res) => {
 //     try {
